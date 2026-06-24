@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mira esto 😱</title>
+<style>
+body{
+margin:0;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+img,video{
+max-width:100%;
+max-height:100%;
+}
+</style>
+</head>
+<body>
+
+<img id="foto" src="https://picsum.photos/800/600">
+
+<video id="video" style="display:none;">
+<source src="vlipsy-creepy-face-jump-scare-3hEsFXt9.mp4" type="video/mp4">
+</video>
+
+<script>
+const foto = document.getElementById("foto");
+const video = document.getElementById("video");
+
+foto.onclick = async () => {
+foto.style.display = "none";
+video.style.display = "block";
+
+try {
+await video.requestFullscreen();
+} catch(e) {}
+
+video.volume = 1;
+video.play();
+};
+</script>
+
+</body>
+</html>
