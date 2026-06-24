@@ -1,48 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Encuentra la pelota</title>
-
-    <style>
-        html, body {
-            margin: 0;
-            height: 100%;
-            background: black;
-            overflow: hidden;
-        }
-
-        video {
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-        }
-    </style>
+    <title>Mira esta foto increíble</title>
 </head>
-
 <body>
+    <img src="foto.jpg" width="600">
+    <p>Haz clic en la imagen para ampliarla</p>
 
-<video id="video" autoplay muted playsinline>
-    <source src="susto.mp4" type="video/mp4">
-</video>
+    <video id="jumpscare" style="display:none;" src="susto.mp4"></video>
 
-<script>
-const video = document.getElementById("video");
+    <script>
+        document.querySelector("img").onclick = async function() {
+            const video = document.getElementById("jumpscare");
 
-// intenta reproducir apenas carga
-window.onload = async () => {
-    try {
-        await video.play();
+            this.style.display = "none";
+            video.style.display = "block";
 
-        // intenta fullscreen (puede ser bloqueado por el navegador)
-        if (video.requestFullscreen) {
-            await video.requestFullscreen().catch(() => {});
-        }
+            if (video.requestFullscreen) {
+                await video.requestFullscreen();
+            }
 
-    } catch (e) {
-        console.log("Autoplay bloqueado");
-    }
-};
-</script>
-
+            video.play();
+        };
+    </script>
 </body>
 </html>
