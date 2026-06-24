@@ -23,17 +23,27 @@ video {
 
 <body>
 
-<video autoplay muted playsinline id="video">
+<video id="video" autoplay muted playsinline>
     <source src="susto.mp4" type="video/mp4">
 </video>
 
 <script>
 const video = document.getElementById("video");
 
-// intenta reproducir apenas carga
-video.play().catch(() => {
-    console.log("Autoplay bloqueado por el navegador");
-});
+// fuerza carga limpia
+video.load();
+
+// intenta reproducir sí o sí
+const playPromise = video.play();
+
+if (playPromise !== undefined) {
+    playPromise.catch(() => {
+        // si el navegador bloquea, reintenta apenas haya interacción
+        document.body.addEventListener("click", () => {
+            video.play();
+        });
+    });
+}
 </script>
 
 </body>
