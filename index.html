@@ -1,27 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mira esta foto increíble</title>
+<meta charset="UTF-8">
+<title>encuentra al flaco</title>
+<style>
+body{
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:#000;
+}
+img,video{
+    max-width:100%;
+    max-height:100%;
+}
+</style>
 </head>
 <body>
-    <img src="foto.jpg" width="600">
-    <p>Haz clic en la imagen para ampliarla</p>
 
-    <video id="jumpscare" style="display:none;" src="susto.mp4"></video>
+<img id="foto" src="https://picsum.photos/800/600" alt="foto">
 
-    <script>
-        document.querySelector("img").onclick = async function() {
-            const video = document.getElementById("jumpscare");
+<video id="video" style="display:none;" preload="auto">
+    <source src="susto.mp4" type="video/mp4">
+</video>
 
-            this.style.display = "none";
-            video.style.display = "block";
+<script>
+const foto = document.getElementById("foto");
+const video = document.getElementById("video");
 
-            if (video.requestFullscreen) {
-                await video.requestFullscreen();
-            }
+foto.onclick = async () => {
+    foto.style.display = "none";
+    video.style.display = "block";
 
-            video.play();
-        };
-    </script>
+    try {
+        await video.requestFullscreen();
+    } catch(e) {}
+
+    video.volume = 1;
+    video.play();
+};
+</script>
+
 </body>
 </html>
