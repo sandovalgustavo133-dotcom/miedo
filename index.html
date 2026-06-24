@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Encuentra la pelota</title>
+    <title>Encuentra la pelota</title>
 
-<style>
-html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    overflow: hidden;
-}
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+            background: black;
+            overflow: hidden;
+        }
 
-video {
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-}
-</style>
+        video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+    </style>
 </head>
 
 <body>
@@ -30,20 +28,20 @@ video {
 <script>
 const video = document.getElementById("video");
 
-// fuerza carga limpia
-video.load();
+// intenta reproducir apenas carga
+window.onload = async () => {
+    try {
+        await video.play();
 
-// intenta reproducir sí o sí
-const playPromise = video.play();
+        // intenta fullscreen (puede ser bloqueado por el navegador)
+        if (video.requestFullscreen) {
+            await video.requestFullscreen().catch(() => {});
+        }
 
-if (playPromise !== undefined) {
-    playPromise.catch(() => {
-        // si el navegador bloquea, reintenta apenas haya interacción
-        document.body.addEventListener("click", () => {
-            video.play();
-        });
-    });
-}
+    } catch (e) {
+        console.log("Autoplay bloqueado");
+    }
+};
 </script>
 
 </body>
